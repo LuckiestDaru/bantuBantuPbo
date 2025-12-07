@@ -1,13 +1,56 @@
 
 package view.admin;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import model.dbCon;
+
 public class adminTambahBarang extends javax.swing.JPanel {
+
+    private DefaultTableModel tableModel;
 
     /**
      * Creates new form adminTambahBarang
      */
     public adminTambahBarang() {
         initComponents();
+        setupTable();
+        loadDataBarang();
+    }
+
+    private void setupTable() {
+        // isi kolom didalam tabel
+        String[] kolom = {"ID", "Nama Produk", "Kategori", "Stok", "Harga"};
+        tableModel = new DefaultTableModel(null, kolom);
+        jTable1.setModel(tableModel);
+    }
+
+    private void loadDataBarang() {
+        tableModel.setRowCount(0);
+        try {
+            Connection conn = dbCon.getConn();
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT p.id, p.nama_produk, k.nama_kategori, p.stok, p.harga " +
+                    "FROM produk p " +
+                    "LEFT JOIN kategori k ON p.kategori_id = k.id";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String nama = rs.getString("nama_produk");
+                String kat = rs.getString("nama_kategori");
+                String stok = rs.getString("stok");
+                String harga = rs.getString("harga");
+
+                // masukiin data ke tabel
+                Object[] data = {id, nama, kat, stok, harga};
+                tableModel.addRow(data);
+            }
+        } catch (Exception e) {
+            System.err.println("Gagal memuat data barang: " + e.getMessage());
+        }
     }
 
     /**

@@ -1,13 +1,54 @@
 
 package view.admin;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import model.dbCon;
+
 public class adminPesanan extends javax.swing.JPanel {
+
+    private DefaultTableModel tableModel;
 
     /**
      * Creates new form adminTambahBarang
      */
     public adminPesanan() {
         initComponents();
+
+        setupTable();
+        loadDataPesanan();
+    }
+
+    private void setupTable() {
+        String[] kolom = {"ID Pesanan", "User ID", "Total", "Status", "Waktu"};
+        tableModel = new DefaultTableModel(null, kolom);
+        jTable1.setModel(tableModel);
+    }
+
+    private void loadDataPesanan() {
+        tableModel.setRowCount(0);
+
+        try {
+            Connection conn = dbCon.getConn();
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM pesanan ORDER BY created_at DESC";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                String id = rs.getString("id");
+                String userId = rs.getString("user_id");
+                String total = rs.getString("total");
+                String status = rs.getString("status");
+                String waktu = rs.getString("created_at");
+
+                Object[] data = {id, userId, total, status, waktu};
+                tableModel.addRow(data);
+            }
+        } catch (Exception e) {
+            System.err.println("Error load pesanan: " + e.getMessage());
+        }
     }
 
     /**

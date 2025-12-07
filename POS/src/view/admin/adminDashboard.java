@@ -2,6 +2,9 @@
 package view.admin;
 
 import javax.swing.JFrame;
+import javax.swing.JFrame;
+import view.Login;
+import javax.swing.JOptionPane;
 
 public class adminDashboard extends javax.swing.JFrame {
     
@@ -132,7 +135,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private void profilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilBtnActionPerformed
         // TODO add your handling code here:
         mainPanel.removeAll();
-        mainPanel.add(new adminProfil(), java.awt.BorderLayout.CENTER);
+        mainPanel.add(new adminProfil(this), java.awt.BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
     }//GEN-LAST:event_profilBtnActionPerformed

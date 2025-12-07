@@ -1,13 +1,52 @@
 
 package view.admin;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import model.UserSession;
+import view.Login;
+
 public class adminProfil extends javax.swing.JPanel {
+
+    private JFrame parentFrame;
 
     /**
      * Creates new form adminProfil
      */
+
+    public adminProfil(JFrame parent) {
+        this.parentFrame = parent;
+        initComponents();
+        setupForm();
+    }
+
     public adminProfil() {
         initComponents();
+        setupForm();
+    }
+
+    private void loadProfileData() {
+        // ambil data dari UserSession, dari login
+        if(UserSession.getNama() != null) {
+            namaAdmin.setText(UserSession.getNama());
+            passwordAdmin.setText(UserSession.getPassword());
+        }
+    }
+
+    private void setupForm() {
+        // buat supaya nama dan password jadi read only
+        namaAdmin.setEditable(false);
+        passwordAdmin.setEditable(false);
+
+        // ganti nama sama pass pake data dari db
+        if (UserSession.getNama() != null) {
+            namaAdmin.setText(UserSession.getNama());
+            passwordAdmin.setText(UserSession.getPassword());
+        } else {
+            // kosong in case belum login
+            namaAdmin.setText("");
+            passwordAdmin.setText("");
+        }
     }
 
     /**
@@ -92,6 +131,21 @@ public class adminProfil extends javax.swing.JPanel {
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
         // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Yakin ingin logout?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            UserSession.clear();
+            //close panel
+            if (parentFrame != null) {
+                parentFrame.dispose();
+            } else {
+                javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
+            }
+
+            //pindah ke login
+            new Login().setVisible(true);
+        }
     }//GEN-LAST:event_logOutActionPerformed
 
 
