@@ -22,4 +22,18 @@ public class dbCon {
         conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
         return conn;
     }
+
+    public static void main(String[] args) {
+        System.out.println("Mencoba menghubungkan ke database...");
+        try {
+            Connection c = getConn();
+            if (c != null) {
+                System.out.println("✅ KONEKSI BERHASIL!");
+                System.out.println("Database: " + c.getCatalog());
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ KONEKSI GAGAL!");
+            System.err.println("Pesan Error: " + e.getMessage());
+        }
+    }
 }

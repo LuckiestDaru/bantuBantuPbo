@@ -4,6 +4,10 @@
  */
 package view;
 
+import controller.UserController;
+import javax.swing.JOptionPane;
+import view.admin.adminDashboard;
+
 /**
  *
  * @author Windows
@@ -316,6 +320,33 @@ public class Login extends javax.swing.JFrame {
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
+        //ambil data dari form
+        String user = Username.getText();
+        String pass = new String(Password.getPassword());
+
+        //cek input kosong aoa engga
+        if (user.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username dan Password tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        //buat objek dari UserController trus cek login pake data yang diambil dr form tadi
+        UserController uController = new UserController();
+        String role = uController.login(user, pass);
+
+        if (role != null) {
+            // kalo rolenya admin nanti pindah ke adminDashboard
+            if (role.equalsIgnoreCase("admin")) {
+                adminDashboard adminPage = new adminDashboard();
+                adminPage.setVisible(true);
+                this.dispose();
+            } else {
+                // ini kalo login selain admin, view menyusul...
+                JOptionPane.showMessageDialog(this, "Login Berhasil sebagai " + role + ".\n(Halaman belum tersedia)", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Username atau Password salah!", "Login Gagal", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_LoginActionPerformed
 
     /**
