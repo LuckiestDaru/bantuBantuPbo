@@ -1,26 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package view;
+
+package view.admin;
 
 import javax.swing.JFrame;
-/**
- *
- * @author Made
- */
+
 public class adminDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(adminDashboard.class.getName());
-    private adminTambahBarang adminTambahBarang;
-
     /**
      * Creates new form adminPage
      */
     public adminDashboard() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        adminTambahBarang = new adminTambahBarang();
     }
 
     /**
@@ -34,7 +25,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         westPanel = new javax.swing.JPanel();
         logoPanel = new javax.swing.JPanel();
-        logoBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         menuPanel = new javax.swing.JPanel();
         daftarBarangBtn = new javax.swing.JButton();
         pesananBtn = new javax.swing.JButton();
@@ -43,31 +34,28 @@ public class adminDashboard extends javax.swing.JFrame {
         salam = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         westPanel.setPreferredSize(new java.awt.Dimension(300, 720));
         westPanel.setLayout(new java.awt.BorderLayout());
 
         logoPanel.setPreferredSize(new java.awt.Dimension(300, 100));
 
-        logoBtn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        logoBtn.setText("LOGO");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/alfamart.png"))); // NOI18N
 
         javax.swing.GroupLayout logoPanelLayout = new javax.swing.GroupLayout(logoPanel);
         logoPanel.setLayout(logoPanelLayout);
         logoPanelLayout.setHorizontalGroup(
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logoPanelLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(logoBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addComponent(jLabel2)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         logoPanelLayout.setVerticalGroup(
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logoPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(logoBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         westPanel.add(logoPanel, java.awt.BorderLayout.PAGE_START);
@@ -83,8 +71,18 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         pesananBtn.setText("PESANAN");
+        pesananBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesananBtnActionPerformed(evt);
+            }
+        });
 
         profilBtn.setText("PROFIL");
+        profilBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profilBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
@@ -114,7 +112,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         salam.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         salam.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        salam.setText("SELAMAT DATANG, ADMIN");
+        salam.setText("   SELAMAT DATANG, ADMIN");
         mainPanel.add(salam, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
@@ -125,11 +123,27 @@ public class adminDashboard extends javax.swing.JFrame {
     private void daftarBarangBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftarBarangBtnActionPerformed
         // TODO add your handling code here:
         mainPanel.removeAll();
-        mainPanel.add(adminTambahBarang, java.awt.BorderLayout.CENTER);
+        mainPanel.add(new adminTambahBarang(), java.awt.BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
         
     }//GEN-LAST:event_daftarBarangBtnActionPerformed
+
+    private void profilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new adminProfil(), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }//GEN-LAST:event_profilBtnActionPerformed
+
+    private void pesananBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesananBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new adminPesanan(), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }//GEN-LAST:event_pesananBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,7 +172,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton daftarBarangBtn;
-    private javax.swing.JButton logoBtn;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel logoPanel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
