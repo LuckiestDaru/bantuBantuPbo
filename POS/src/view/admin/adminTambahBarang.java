@@ -75,7 +75,7 @@ public class adminTambahBarang extends javax.swing.JPanel {
 
         judul.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         judul.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        judul.setText("TAMBAH BARANG");
+        judul.setText("LIST BARANG");
         judulPanel.add(judul, java.awt.BorderLayout.CENTER);
 
         add(judulPanel, java.awt.BorderLayout.PAGE_START);
