@@ -24,9 +24,6 @@ public class adminProfil extends javax.swing.JPanel {
         passwordAdmin = new javax.swing.JTextField();
         logOut = new javax.swing.JButton();
 
-        setMinimumSize(new java.awt.Dimension(980, 720));
-        setPreferredSize(new java.awt.Dimension(980, 720));
-
         profilePic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/admin/profile.png"))); // NOI18N
 
         namaAdmin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -56,39 +53,33 @@ public class adminProfil extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(356, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(passwordAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(profilePic)
-                            .addGap(432, 432, 432))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(namaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(356, 356, 356)))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(profilePic)
-                .addGap(36, 36, 36)
-                .addComponent(namaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(passwordAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = java.awt.GridBagConstraints.NONE;
+        
+        gbc.gridy = 0;
+        gbc.insets = new java.awt.Insets(0, 0, 36, 0);
+        add(profilePic, gbc);
+        
+        gbc.gridy = 1;
+        namaAdmin.setPreferredSize(new java.awt.Dimension(268, 40));
+        namaAdmin.setMinimumSize(new java.awt.Dimension(268, 40));
+        namaAdmin.setMaximumSize(new java.awt.Dimension(268, 40));
+        add(namaAdmin, gbc);
+        
+        gbc.gridy = 2;
+        passwordAdmin.setPreferredSize(new java.awt.Dimension(268, 40));
+        passwordAdmin.setMinimumSize(new java.awt.Dimension(268, 40));
+        passwordAdmin.setMaximumSize(new java.awt.Dimension(268, 40));
+        add(passwordAdmin, gbc);
+        
+        gbc.gridy = 3;
+        gbc.insets = new java.awt.Insets(0, 0, 0, 0);
+        logOut.setPreferredSize(new java.awt.Dimension(120, 40));
+        logOut.setMinimumSize(new java.awt.Dimension(120, 40));
+        logOut.setMaximumSize(new java.awt.Dimension(120, 40));
+        add(logOut, gbc);
     }// </editor-fold>//GEN-END:initComponents
 
     private void namaAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaAdminActionPerformed
