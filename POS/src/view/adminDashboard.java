@@ -1,14 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package view;
 
 import javax.swing.JFrame;
-/**
- *
- * @author Made
- */
+
 public class adminDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(adminDashboard.class.getName());
@@ -34,7 +28,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         westPanel = new javax.swing.JPanel();
         logoPanel = new javax.swing.JPanel();
-        logoBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         menuPanel = new javax.swing.JPanel();
         daftarBarangBtn = new javax.swing.JButton();
         pesananBtn = new javax.swing.JButton();
@@ -50,24 +44,22 @@ public class adminDashboard extends javax.swing.JFrame {
 
         logoPanel.setPreferredSize(new java.awt.Dimension(300, 100));
 
-        logoBtn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        logoBtn.setText("LOGO");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/alfamart.png"))); // NOI18N
 
         javax.swing.GroupLayout logoPanelLayout = new javax.swing.GroupLayout(logoPanel);
         logoPanel.setLayout(logoPanelLayout);
         logoPanelLayout.setHorizontalGroup(
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logoPanelLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(logoBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addComponent(jLabel2)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         logoPanelLayout.setVerticalGroup(
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logoPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(logoBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         westPanel.add(logoPanel, java.awt.BorderLayout.PAGE_START);
@@ -114,7 +106,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         salam.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         salam.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        salam.setText("SELAMAT DATANG, ADMIN");
+        salam.setText("   SELAMAT DATANG, ADMIN");
         mainPanel.add(salam, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
@@ -158,7 +150,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton daftarBarangBtn;
-    private javax.swing.JButton logoBtn;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel logoPanel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
