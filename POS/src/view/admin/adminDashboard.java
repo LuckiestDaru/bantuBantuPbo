@@ -1,4 +1,3 @@
-
 package view.admin;
 
 import javax.swing.JFrame;
@@ -33,7 +32,7 @@ public class adminDashboard extends javax.swing.JFrame {
         daftarBarangBtn = new javax.swing.JButton();
         pesananBtn = new javax.swing.JButton();
         profilBtn = new javax.swing.JButton();
-        daftarBarangBtn1 = new javax.swing.JButton();
+        NambahBarang = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         salam = new javax.swing.JLabel();
 
@@ -64,7 +63,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         westPanel.add(logoPanel, java.awt.BorderLayout.PAGE_START);
 
-        daftarBarangBtn.setText("LIAT BARANG");
+        daftarBarangBtn.setText("DAFTAR BARANG");
         daftarBarangBtn.setMaximumSize(new java.awt.Dimension(32767, 32767));
         daftarBarangBtn.setMinimumSize(new java.awt.Dimension(0, 0));
         daftarBarangBtn.setPreferredSize(new java.awt.Dimension(76, 50));
@@ -88,13 +87,13 @@ public class adminDashboard extends javax.swing.JFrame {
             }
         });
 
-        daftarBarangBtn1.setText("TAMBAH BARANG");
-        daftarBarangBtn1.setMaximumSize(new java.awt.Dimension(32767, 32767));
-        daftarBarangBtn1.setMinimumSize(new java.awt.Dimension(0, 0));
-        daftarBarangBtn1.setPreferredSize(new java.awt.Dimension(76, 50));
-        daftarBarangBtn1.addActionListener(new java.awt.event.ActionListener() {
+        NambahBarang.setText("TAMBAH BARANG");
+        NambahBarang.setMaximumSize(new java.awt.Dimension(32767, 32767));
+        NambahBarang.setMinimumSize(new java.awt.Dimension(0, 0));
+        NambahBarang.setPreferredSize(new java.awt.Dimension(76, 50));
+        NambahBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                daftarBarangBtn1ActionPerformed(evt);
+                NambahBarangActionPerformed(evt);
             }
         });
 
@@ -102,26 +101,23 @@ public class adminDashboard extends javax.swing.JFrame {
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuPanelLayout.createSequentialGroup()
-                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pesananBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(profilBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(daftarBarangBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(daftarBarangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+            .addComponent(daftarBarangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pesananBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(profilBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(NambahBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(daftarBarangBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(40, 40, 40)
                 .addComponent(daftarBarangBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
+                .addComponent(NambahBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(pesananBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addComponent(profilBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         westPanel.add(menuPanel, java.awt.BorderLayout.CENTER);
@@ -165,9 +161,13 @@ public class adminDashboard extends javax.swing.JFrame {
         mainPanel.repaint();
     }//GEN-LAST:event_pesananBtnActionPerformed
 
-    private void daftarBarangBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftarBarangBtn1ActionPerformed
-        
-    }//GEN-LAST:event_daftarBarangBtn1ActionPerformed
+    private void NambahBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NambahBarangActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new adminNambahBarang(), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }//GEN-LAST:event_NambahBarangActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,8 +195,8 @@ public class adminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton NambahBarang;
     private javax.swing.JButton daftarBarangBtn;
-    private javax.swing.JButton daftarBarangBtn1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel logoPanel;
     private javax.swing.JPanel mainPanel;
