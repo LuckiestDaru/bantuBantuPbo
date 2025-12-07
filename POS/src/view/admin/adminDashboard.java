@@ -40,7 +40,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         logoPanel.setPreferredSize(new java.awt.Dimension(300, 100));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/alfamart.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/admin/alfamart.png"))); // NOI18N
 
         javax.swing.GroupLayout logoPanelLayout = new javax.swing.GroupLayout(logoPanel);
         logoPanel.setLayout(logoPanelLayout);

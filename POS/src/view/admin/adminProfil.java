@@ -27,7 +27,7 @@ public class adminProfil extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(980, 720));
         setPreferredSize(new java.awt.Dimension(980, 720));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/profile.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/admin/profile.png"))); // NOI18N
 
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("NAMA ADMIN");
