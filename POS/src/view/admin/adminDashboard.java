@@ -1,20 +1,17 @@
 
-package view;
+package view.admin;
 
 import javax.swing.JFrame;
 
 public class adminDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(adminDashboard.class.getName());
-    private adminTambahBarang adminTambahBarang;
-
     /**
      * Creates new form adminPage
      */
     public adminDashboard() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        adminTambahBarang = new adminTambahBarang();
     }
 
     /**
@@ -37,7 +34,6 @@ public class adminDashboard extends javax.swing.JFrame {
         salam = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         westPanel.setPreferredSize(new java.awt.Dimension(300, 720));
         westPanel.setLayout(new java.awt.BorderLayout());
@@ -75,8 +71,18 @@ public class adminDashboard extends javax.swing.JFrame {
         });
 
         pesananBtn.setText("PESANAN");
+        pesananBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesananBtnActionPerformed(evt);
+            }
+        });
 
         profilBtn.setText("PROFIL");
+        profilBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profilBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
@@ -117,11 +123,27 @@ public class adminDashboard extends javax.swing.JFrame {
     private void daftarBarangBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftarBarangBtnActionPerformed
         // TODO add your handling code here:
         mainPanel.removeAll();
-        mainPanel.add(adminTambahBarang, java.awt.BorderLayout.CENTER);
+        mainPanel.add(new adminTambahBarang(), java.awt.BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
         
     }//GEN-LAST:event_daftarBarangBtnActionPerformed
+
+    private void profilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new adminProfil(), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }//GEN-LAST:event_profilBtnActionPerformed
+
+    private void pesananBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesananBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new adminPesanan(), java.awt.BorderLayout.CENTER);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }//GEN-LAST:event_pesananBtnActionPerformed
 
     /**
      * @param args the command line arguments

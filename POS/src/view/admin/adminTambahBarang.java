@@ -1,5 +1,5 @@
 
-package view;
+package view.admin;
 
 public class adminTambahBarang extends javax.swing.JPanel {
 
