@@ -10,10 +10,12 @@ import model.UserSession;
 public class UserController {
     public String login(String username, String password) {
         String roleName = null;
-        String query = "SELECT u.id, u.nama, u.username, u.password, r.role_name " +
-                "FROM users u " +
-                "JOIN roles r ON u.role_id = r.id " +
-                "WHERE u.username = ? AND u.password = ?";
+        String query ="""
+                SELECT u.id, u.nama, u.username, u.password, r.role_name
+                FROM users u
+                JOIN roles r ON u.role_id = r.id
+                WHERE u.username = ? AND u.password = ?
+                """;
 
         // try-withresource biar auto close conn
         try (Connection conn = dbCon.getConn();
