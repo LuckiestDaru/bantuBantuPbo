@@ -64,6 +64,7 @@ public class adminTambahBarang extends javax.swing.JPanel {
 
         judulPanel = new javax.swing.JPanel();
         judul = new javax.swing.JLabel();
+        editBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -77,6 +78,16 @@ public class adminTambahBarang extends javax.swing.JPanel {
         judul.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         judul.setText("LIST BARANG");
         judulPanel.add(judul, java.awt.BorderLayout.CENTER);
+
+        editBtn.setBackground(new java.awt.Color(204, 204, 204));
+        editBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        editBtn.setText("EDIT");
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
+        judulPanel.add(editBtn, java.awt.BorderLayout.PAGE_END);
 
         add(judulPanel, java.awt.BorderLayout.PAGE_START);
 
@@ -100,8 +111,13 @@ public class adminTambahBarang extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton editBtn;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
