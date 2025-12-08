@@ -6,12 +6,16 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.dbCon;
+import controller.ProdukController;
 
 public class adminNambahBarang extends javax.swing.JPanel {
     private List<Integer> listIdKategori = new ArrayList<>();
+
+    private ProdukController controller = new ProdukController();
 
     public adminNambahBarang() {
         initComponents();
@@ -27,20 +31,11 @@ public class adminNambahBarang extends javax.swing.JPanel {
         jComboBox1.removeAllItems();
         listIdKategori.clear();
 
-        try {
-            Connection conn = dbCon.getConn();
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT id, nama_kategori FROM kategori";
-            ResultSet rs = stmt.executeQuery(sql);
+        Map<Integer, String> mapKategori = controller.getListKategori();
 
-            while(rs.next()) {
-                int id = rs.getInt("id");
-                String nama = rs.getString("nama_kategori");
-                jComboBox1.addItem(nama);
-                listIdKategori.add(id);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (Map.Entry<Integer, String> entry : mapKategori.entrySet()) {
+            jComboBox1.addItem(entry.getValue());
+            listIdKategori.add(entry.getKey());
         }
     }
 
@@ -67,9 +62,6 @@ public class adminNambahBarang extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -118,13 +110,6 @@ public class adminNambahBarang extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Stok              :");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Deskripsi       :");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -151,11 +136,7 @@ public class adminNambahBarang extends javax.swing.JPanel {
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel2Layout.setVerticalGroup(
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,11 +160,7 @@ public class adminNambahBarang extends javax.swing.JPanel {
                                 .addGap(6, 6, 6)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel7)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jButton1.setBackground(new java.awt.Color(0, 153, 0));
@@ -261,7 +238,7 @@ public class adminNambahBarang extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }// </editor-fold>                        
+    }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         String nama = NamaBarang.getText();
@@ -275,7 +252,6 @@ public class adminNambahBarang extends javax.swing.JPanel {
         try {
             int stok = (int) jSpinner1.getValue();
             int harga = Integer.parseInt(hargaStr);
-
             int indexTerpilih = jComboBox1.getSelectedIndex();
 
             if (indexTerpilih == -1) {
@@ -285,19 +261,14 @@ public class adminNambahBarang extends javax.swing.JPanel {
 
             int kategoriId = listIdKategori.get(indexTerpilih);
 
-            Connection conn = dbCon.getConn();
-            String sql = "INSERT INTO produk (nama_produk, kategori_id, stok, harga) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            boolean sukses = controller.tambahProduk(nama, kategoriId, stok, harga);
 
-            ps.setString(1, nama);
-            ps.setInt(2, kategoriId);
-            ps.setInt(3, stok);
-            ps.setInt(4, harga);
-
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Barang berhasil ditambah!");
-
-            jButton2ActionPerformed(evt); // Reset
+            if (sukses) {
+                JOptionPane.showMessageDialog(this, "Barang berhasil ditambah!");
+                jButton2ActionPerformed(evt);
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menyimpan data ke database.");
+            }
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Harga harus angka!");
@@ -310,7 +281,6 @@ public class adminNambahBarang extends javax.swing.JPanel {
         NamaBarang.setText("");
         Harga.setText("");
         jSpinner1.setValue(0);
-        jTextArea1.setText("");
         if(jComboBox1.getItemCount() > 0) jComboBox1.setSelectedIndex(0);
     }
 
@@ -322,7 +292,7 @@ public class adminNambahBarang extends javax.swing.JPanel {
         mainPanel.repaint();
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify
     private javax.swing.JTextField Harga;
     private javax.swing.JTextField KodeBarang;
     private javax.swing.JTextField NamaBarang;
@@ -337,12 +307,9 @@ public class adminNambahBarang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration                   
 }

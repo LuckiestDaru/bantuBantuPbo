@@ -68,6 +68,7 @@ public class adminTambahBarang extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        HapusProduk = new javax.swing.JToggleButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -108,15 +109,88 @@ public class adminTambahBarang extends javax.swing.JPanel {
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        HapusProduk.setBackground(new java.awt.Color(255, 153, 153));
+        HapusProduk.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        HapusProduk.setText("HAPUS");
+        HapusProduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HapusProdukActionPerformed(evt);
+            }
+        });
+        jPanel2.add(HapusProduk, java.awt.BorderLayout.PAGE_START);
+
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih barang yang mau diedit dulu!");
+            return;
+        }
+        String idStr = jTable1.getValueAt(selectedRow, 0).toString();
+        int idProduk = Integer.parseInt(idStr);
+        adminEditBarang editPage = new adminEditBarang(idProduk);
+        editPage.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                loadDataBarang(); // Refresh tabel
+            }
+        });
+
+        editPage.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
+
+    private void HapusProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HapusProdukActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus terlebih dahulu!");
+            return;
+        }
+
+        // 2. Ambil ID dari kolom pertama (index 0) pada baris yang dipilih
+        String id = jTable1.getValueAt(selectedRow, 0).toString();
+
+        // 3. Tampilkan dialog konfirmasi
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+                "Apakah Anda yakin ingin menghapus data produk ini?",
+                "Konfirmasi Hapus",
+                javax.swing.JOptionPane.YES_NO_OPTION);
+
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            try {
+                // 4. Koneksi ke Database
+                Connection conn = model.dbCon.getConn();
+
+                // 5. Query Hapus
+                String sql = "DELETE FROM produk WHERE id = ?";
+                java.sql.PreparedStatement p = conn.prepareStatement(sql);
+
+                // 6. Set parameter ID (asumsi ID di database tipe Integer, jika Varchar biarkan setString)
+                p.setInt(1, Integer.parseInt(id));
+
+                // 7. Eksekusi
+                p.executeUpdate();
+                p.close();
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil dihapus!");
+
+                // 8. Refresh Tabel
+                loadDataBarang();
+
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Gagal menghapus data: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_HapusProdukActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton HapusProduk;
     private javax.swing.JButton editBtn;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

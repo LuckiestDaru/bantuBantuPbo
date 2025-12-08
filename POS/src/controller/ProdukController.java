@@ -44,4 +44,45 @@ public class ProdukController {
             return false;
         }
     }
+
+    public Map<String, Object> getProdukById(int id) {
+        Map<String, Object> data = new HashMap<>();
+        String sql = "SELECT * FROM produk WHERE id = ?";
+
+        try (Connection conn = dbCon.getConn();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                data.put("nama_produk", rs.getString("nama_produk"));
+                data.put("kategori_id", rs.getInt("kategori_id"));
+                data.put("harga", rs.getString("harga")); // Simpan sebagai String agar mudah di set ke TextField
+                data.put("stok", rs.getInt("stok"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public boolean updateProduk(int id, String nama, int kategoriId, int stok, int harga) {
+        String sql = "UPDATE produk SET nama_produk=?, kategori_id=?, stok=?, harga=? WHERE id=?";
+
+        try (Connection conn = dbCon.getConn();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, nama);
+            ps.setInt(2, kategoriId);
+            ps.setInt(3, stok);
+            ps.setInt(4, harga);
+            ps.setInt(5, id);
+
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.err.println("Gagal update produk: " + e.getMessage());
+            return false;
+        }
+    }
 }

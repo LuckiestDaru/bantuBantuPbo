@@ -4,6 +4,17 @@
  */
 package view.admin;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import model.dbCon;
+import controller.ProdukController;
+
 /**
  *
  * @author Windows
@@ -12,11 +23,56 @@ public class adminEditBarang extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(adminEditBarang.class.getName());
 
+    private int idProduk;
+    private List<Integer> listIdKategori = new ArrayList<>();
+    private ProdukController controller = new ProdukController();
     /**
      * Creates new form adminEditBarang
      */
     public adminEditBarang() {
         initComponents();
+    }
+
+    public adminEditBarang(int id) {
+        initComponents();
+        this.idProduk = id;
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        loadKategoriCombo();
+        loadDataProduk();
+    }
+
+    private void loadKategoriCombo() {
+        jComboBox2.removeAllItems();
+        listIdKategori.clear();
+
+        Map<Integer, String> mapKategori = controller.getListKategori();
+
+        for (Map.Entry<Integer, String> entry : mapKategori.entrySet()) {
+            jComboBox2.addItem(entry.getValue());
+            listIdKategori.add(entry.getKey());
+        }
+    }
+
+    private void loadDataProduk() {
+        Map<String, Object> data = controller.getProdukById(this.idProduk);
+
+        if (!data.isEmpty()) {
+            NamaBarang1.setText((String) data.get("nama_produk"));
+            Harga1.setText((String) data.get("harga"));
+            jSpinner2.setValue((int) data.get("stok"));
+
+            int dbKategoriId = (int) data.get("kategori_id");
+            for (int i = 0; i < listIdKategori.size(); i++) {
+                if (listIdKategori.get(i) == dbKategoriId) {
+                    jComboBox2.setSelectedIndex(i);
+                    break;
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Data produk tidak ditemukan!");
+        }
     }
 
     /**
@@ -216,25 +272,54 @@ public class adminEditBarang extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String nama = NamaBarang1.getText();
+        String hargaStr = Harga1.getText();
+
+        if(nama.isEmpty() || hargaStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Data tidak boleh kosong!");
+            return;
+        }
+
+        try {
+            int harga = Integer.parseInt(hargaStr);
+            int stok = (int) jSpinner2.getValue();
+            int indexKategori = jComboBox2.getSelectedIndex();
+
+            if (indexKategori == -1) {
+                JOptionPane.showMessageDialog(this, "Pilih kategori valid!");
+                return;
+            }
+            int kategoriId = listIdKategori.get(indexKategori);
+            boolean sukses = controller.updateProduk(this.idProduk, nama, kategoriId, stok, harga);
+
+            if (sukses) {
+                JOptionPane.showMessageDialog(this, "Data berhasil diupdate!");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal mengupdate data");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Harga harus angka!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Eror: " + e.getMessage());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        loadDataProduk();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -242,12 +327,9 @@ public class adminEditBarang extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (Exception ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new adminEditBarang().setVisible(true));
     }
 
